@@ -14,18 +14,18 @@ app.get('/apps', (req, res) => {
   const validSorts = ['rating', 'app'];
   let results = [...playstore];
 
-  if (sort) {
-    if(!validSorts.includes(sort.toLowerCase())) {
-      return res.status(400)
-        .send('Sort must be by rating or app.');
-    }
+
+  if(sort && !validSorts.includes(sort.toLowerCase())) {
+    return res.status(400)
+      .json({ message: 'Sort must be by rating or app.'});
   }
-  if (genres) {
-    if(!validGenres.includes(genres.toLowerCase())) {
-      return res.status(400)
-        .send(`Genres must be one of the following: ${validGenres}`);
-    }
+  
+
+  if(genres && !validGenres.includes(genres.toLowerCase())) {
+    return res.status(400)
+      .json({ message: `Genres must be one of the following: ${validGenres}`});
   }
+  
 
   if(req.query.genres) {
     results = playstore
